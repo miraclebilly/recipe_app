@@ -1,0 +1,41 @@
+@layout('layouts/main')
+@set('title', 'signup')
+
+@section('body')
+<section class="row justify-content-center">
+
+        {{--  {{ inspect(flashMessages.all()) }}  --}}
+
+<form class = "col-lg-4" action = "/signup" method = "post">
+            <h1>Sign Up</h1>
+
+            {{ csrfField() }}
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Username</label>
+                <input type="text" class="form-control" name="username" placeholder="User Name">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="text" name="email" placeholder="Email Address"
+                 class="form-control {{ flashMessages.get('errors.email') ? 'is-invalid': '' }}"
+                 value="{{ flashMessages.has('email') ? flashMessages.get('email') : '' }}">
+
+                @if(flashMessages.has('errors.email'))
+                <div class="invalid-feedback">{{ flashMessages.get('errors.email') }} </div>
+              @endif
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Password">
+            </div>
+            <div class="mb-3">
+                    <label for="password_confirmation" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </section>  
+
+
+@endsection

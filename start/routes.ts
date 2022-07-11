@@ -21,3 +21,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', 'HomeController.index')
+
+//Users
+Route.get('/signup', 'AuthController.new').as('newUser')
+Route.post('/signup', 'AuthController.create').as('createUser')
