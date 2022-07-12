@@ -11,10 +11,6 @@
 
             {{ csrfField() }}
 
-            @if(flashMessages.has('auth.error'))
-                <div class = "alert alert-danger"> Invalid email and/or password </div>
-            @endif
-
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
                 <input 

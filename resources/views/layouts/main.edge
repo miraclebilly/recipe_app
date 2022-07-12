@@ -17,9 +17,7 @@
 
     @include('layouts/_nav')
     <div class = "container">
-        @if(flashMessages.has('success'))
-        <div class = "alert alert-success"> Logged out successfully </div>
-        @endif
+        @include('layouts/flash')
        @!section('body')
     </div>
 

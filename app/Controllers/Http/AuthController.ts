@@ -1,7 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { rules, schema} from '@ioc:Adonis/Core/Validator'
 import User from 'App/Models/User'
+import CreateUserValidator from 'App/Validators/CreateUserValidator'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+
 
 
 export default class AuthController {
@@ -12,24 +13,7 @@ export default class AuthController {
     }
 
     public async create ({request, auth, response}: HttpContextContract){
-        // console.log("start...")
-        const validationSchema = schema.create({
-            username: schema.string({trim: true}, [
-               rules.unique({table: 'users', column: 'username'}),
-            ]),
-            email: schema.string({trim: true}, [
-                rules.email(),
-                rules.maxLength(255),
-                rules.unique({ table: 'users', column: 'email'}),
-            ]),
-            password: schema.string({ trim: true}, [
-                rules.confirmed(),
-            ]),
-        })
-
-        const validatedData = await request.validate({
-            schema: validationSchema,
-        })
+        const validatedData = await request.validate(CreateUserValidator)
         const user = await User.create(validatedData)
         await user.save();
         // await auth.login(user);
@@ -37,18 +21,31 @@ export default class AuthController {
         return response.redirect('/login')
     }
 
-        public login ({view}: HttpContextContract){
+        public async login ({view, auth}: HttpContextContract){
+            try {
+                await auth.authenticate()
+                if (auth.isLoggedIn) {
+                  session.flash({ warning: 'Already logged in' })
+                  return response.redirect("/")
+                }
+              } catch (error) {}
+          
             return view.render('auth/login')
         }
 
         public async newLogin({ request, auth, session, response}: HttpContextContract){
             const { email, password } = request.all()
 
+
+
             try {
                 await auth.attempt(email, password)
+                session.flash({success: 'Logged in successfully'})
                 return response.redirect('/')
+                
             } catch (error) {
-                session.flash('auth.error', 'error')
+                session.flash({error: 'Invalid email and/or password'})
+                session.flash({ email })
                 return response.redirect('/login')
             }
             
