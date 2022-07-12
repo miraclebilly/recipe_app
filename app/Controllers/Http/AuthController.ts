@@ -1,6 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { rules, schema} from '@ioc:Adonis/Core/Validator'
 import User from 'App/Models/User'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 
 
 export default class AuthController {
@@ -11,7 +12,7 @@ export default class AuthController {
     }
 
     public async create ({request, auth, response}: HttpContextContract){
-        console.log("start...")
+        // console.log("start...")
         const validationSchema = schema.create({
             username: schema.string({trim: true}, [
                rules.unique({table: 'users', column: 'username'}),
@@ -29,13 +30,33 @@ export default class AuthController {
         const validatedData = await request.validate({
             schema: validationSchema,
         })
-        console.log(validatedData)
         const user = await User.create(validatedData)
-        console.log(user)
         await user.save();
         // await auth.login(user);
 
-        return response.redirect('/')
+        return response.redirect('/login')
     }
 
+        public login ({view}: HttpContextContract){
+            return view.render('auth/login')
+        }
+
+        public async newLogin({ request, auth, session, response}: HttpContextContract){
+            const { email, password } = request.all()
+
+            try {
+                await auth.attempt(email, password)
+                return response.redirect('/')
+            } catch (error) {
+                session.flash('auth.error', 'error')
+                return response.redirect('/login')
+            }
+            
+        }
+
+        public async logout({ auth, session, response}: HttpContextContract){
+            await auth.logout()
+            session.flash({success: 'Logged out successfully'})
+            return response.redirect('/login')
+        }
 }

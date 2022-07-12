@@ -13,26 +13,54 @@
 
             <div class="mb-3">
                 <label for="name" class="form-label">Username</label>
-                <input type="text" class="form-control" name="username" placeholder="User Name">
+                <input 
+                    type="text"  name="username" placeholder="Username" 
+                    class="form-control {{ flashMessages.get('errors.username') ? 'is-invalid' : '' }} "
+                    value="{{ flashMessages.get('username') || ''}}"
+                >
+                @if (flashMessages.has('errors.username'))
+                    <div class = "invalid-feedback">
+                        {{ flashMessages.get('errors.username')}}
+                    </div>
+                @endif
             </div>
+
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
-                <input type="text" name="email" placeholder="Email Address"
-                 class="form-control {{ flashMessages.get('errors.email') ? 'is-invalid': '' }}"
-                 value="{{ flashMessages.has('email') ? flashMessages.get('email') : '' }}">
-
+                <input 
+                    type="text" name="email" placeholder="Email Address"
+                    class="form-control {{ flashMessages.get('errors.email') ? 'is-invalid': '' }}"
+                    value="{{ flashMessages.has('email') ? flashMessages.get('email') : '' }}"
+                >
                 @if(flashMessages.has('errors.email'))
-                <div class="invalid-feedback">{{ flashMessages.get('errors.email') }} </div>
-              @endif
+                 <div class="invalid-feedback">{{ flashMessages.get('errors.email') }} </div>
+                @endif
             </div>
+
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Password">
+                <input 
+                    type="password" class="form-control
+                    {{ flashMessages.get('errors.password') ? 'is-invalid': '' }}"
+                    value="{{ flashMessages.has('password') ? flashMessages.get('password') : '' }}" name="password" placeholder="Password"
+                >
+                @if(flashMessages.has('errors.password'))
+                <div class="invalid-feedback">{{ flashMessages.get('errors.password') }} </div>
+                @endif
             </div>
+
             <div class="mb-3">
-                    <label for="password_confirmation" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password">
+                <label for="password_confirmation" class="form-label">Confirm Password</label>
+                <input
+                    type="password" class="form-control
+                    {{ flashMessages.get('errors.password_confirmation') ? 'is-invalid': '' }}"
+                    value="{{ flashMessages.has('password_confirmation') ? flashMessages.get('password_confirmation') : '' }}" name="password_confirmation" placeholder="Confirm Password"
+                >
+                @if(flashMessages.has('errors.password_confirmation'))
+                <div class="invalid-feedback">{{ flashMessages.get('errors.password_confirmation') }} </div>
+                @endif
             </div>
+
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </section>  

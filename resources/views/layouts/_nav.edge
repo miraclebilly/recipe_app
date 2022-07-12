@@ -7,7 +7,12 @@
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
               <a class="nav-link" href="/signup">Sign Up</a>
-              <a class="nav-link" href="/signin">Sign in</a>
+              <a class="nav-link" href="/login">Login</a>
+            @if(auth.isLoggedIn)
+             <a class="nav-link" href="{{route('AuthController.logout')}}">Logout</a>
+             
+           @endif
+                               
               
             </div>
           </div>
