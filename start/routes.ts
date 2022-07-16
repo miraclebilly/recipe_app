@@ -19,7 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-import AuthController from '../app/Controllers/Http/AuthController';
+
 
 Route.get('/', 'HomeController.index')
 
@@ -33,3 +33,8 @@ Route.post('/login', 'AuthController.newLogin')
 
 //logout
 Route.get('/logout', 'AuthController.logout')
+
+//add recipe
+Route.get('/recipes/new', 'RecipesController.new')
+Route.post('/recipes', 'RecipesController.create')
+

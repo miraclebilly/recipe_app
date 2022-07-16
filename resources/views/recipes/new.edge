@@ -1,0 +1,25 @@
+@layout('layouts/main')
+@set('title', 'login')
+
+@section('body')
+    <section class="row justify-content-center">
+
+        <form class = "col-lg-4" action = "/recipes" method = "post">
+            <br>
+            <h2>Add Recipe</h2>
+
+            {{ csrfField() }}
+            
+            <div class="mb-3">
+                  <input type="text" class="form-control" placeholder="Add Title" name="title">
+            </div>
+
+            <div class="form-floating mb-3">
+                    <textarea class="form-control" name="body" placeholder="Type your recipe" id="floatingTextarea2" style="height: 200px"></textarea>
+            </div>
+
+                <button type="submit" class="btn btn-primary">Post</button>
+        </form>
+    </section>
+
+@endsection

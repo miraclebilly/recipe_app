@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import { column, beforeSave, BaseModel, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import Recipe from 'App/Models/Recipe'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -15,8 +16,6 @@ export default class User extends BaseModel {
   @column({ serializeAs: null })
   public password: string
 
-
-
   @column()
   public rememberMeToken?: string
 
@@ -25,6 +24,9 @@ export default class User extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @hasMany(() => Recipe)
+  public recipes: HasMany<typeof Recipe>
 
   @beforeSave()
   public static async hashPassword(user: User) {
