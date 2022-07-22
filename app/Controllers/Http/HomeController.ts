@@ -5,7 +5,7 @@ import Recipe from "../../Models/Recipe";
 export default class HomeController{
 
     async index({view}: HttpContextContract){
-        const recipes = await Recipe.query().preload('user')
+        const recipes = await Recipe.query().orderBy('created_at', 'desc').preload('user')
         return view.render('home', {recipes} )
     }
 }

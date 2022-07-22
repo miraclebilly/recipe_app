@@ -2,24 +2,26 @@
 @set('title', '')
 
 @section('body')
-<div>
+<div class="d-flex align-items-center justify-content-between">
+    <h1>{{recipe.title}}</h1>
+    <div class="d-flex gap-4">
 
-    {{--  Its show the entire activities going on in this template  --}}
-    {{--  {{inspect(auth.user.id)}}
-    {{inspect(recipe)}}  --}}
-    @if(auth.user?.id == recipe.userId)
-        <a href="{{recipe.id}}/edit">Edit</a>
+        {{--  Its show the entire activities going on in this template  --}}
+        {{--  {{inspect(auth.user.id)}}
+        {{inspect(recipe)}}  --}}
+        @if(auth.user?.id == recipe.userId)
+            <a href="{{recipe.id}}/edit">Edit</a>
 
-        <form action="/recipes/{{recipe.id }}?_method=DELETE" method="POST">
-            {{ csrfField() }}
-            <button>Delete</button>
-        </form>
-    @endif
+            <form action="/recipes/{{recipe.id }}?_method=DELETE" method="POST">
+                {{ csrfField() }}
+                <button type='submit' class='btn btn-danger btn-sm' onclick="return confirm('Delete this Recipe?');">Delete</button>
+            </form>
+        @endif
 
+    </div>
 </div>
 
 
-<h1>{{recipe.title}}</h1>
 <p>{{{recipe.body}}}</p>
 
 
