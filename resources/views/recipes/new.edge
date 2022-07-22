@@ -15,11 +15,16 @@
             </div>
 
             <div class="form-floating mb-3">
-                    <textarea class="form-control" name="body" placeholder="Type your recipe" id="floatingTextarea2" style="height: 200px"></textarea>
+                    <textarea class="form-control" name="body" placeholder="Type your recipe" id="recipe-body" style="height: 200px"></textarea>
             </div>
 
                 <button type="submit" class="btn btn-primary">Post</button>
         </form>
     </section>
 
+    <script>
+        tinymce.init({
+            selector: '#recipe-body'
+        });
+    </script>
 @endsection

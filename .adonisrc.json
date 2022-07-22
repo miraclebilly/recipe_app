@@ -36,6 +36,7 @@
     {
       "pattern": "public/**",
       "reloadServer": false
+      
     },
     {
       "pattern": "resources/views/**/*.edge",

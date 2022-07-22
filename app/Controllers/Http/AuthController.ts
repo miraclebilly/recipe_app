@@ -39,8 +39,6 @@ export default class AuthController {
         public async newLogin({ request, auth, session, response}: HttpContextContract){
             const { email, password } = request.all()
 
-
-
             try {
                 await auth.attempt(email, password)
                 session.flash({success: 'Logged in successfully'})
@@ -60,25 +58,5 @@ export default class AuthController {
             return response.redirect('/login')
         }
 
-        public recipe({view}: HttpContextContract){
-            return view.render('addrecipe')
-        }
 
-        public async addrecipe({ request, auth, session, response}: HttpContextContract){
-            const recipeSchema = schema.create({
-                title: schema.string({ trim: true }),
-                body: schema.string({ trim: true }),
-                
-            })
-            const recipeParams = await request.validate({schema: recipeSchema});
-            const recipe = new Recipe();
-            recipe.title = recipeParams.title
-            recipe.body = recipeParams.body
-
-            await recipe.save()
-            session.flash({success: 'Recipe created successfully'})
-            return response.redirect('/')         
-            
-           
-        }
 }

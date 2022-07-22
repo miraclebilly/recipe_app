@@ -34,7 +34,11 @@ Route.post('/login', 'AuthController.newLogin')
 //logout
 Route.get('/logout', 'AuthController.logout')
 
-//add recipe
+//Recipe
 Route.get('/recipes/new', 'RecipesController.new')
 Route.post('/recipes', 'RecipesController.create')
+Route.get('/recipes/:id', 'RecipesController.show')
+Route.get('/recipes/:id/edit', 'RecipesController.edit')
+Route.put('/recipes/:id', 'RecipesController.update')
+Route.delete('/recipes/:id', 'RecipesController.delete')
 

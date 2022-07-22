@@ -1,0 +1,38 @@
+@layout('layouts/main')
+@set('title', 'Edit Recipes')
+
+@section('body')
+
+<section class="row justify-content-center">
+
+<form class = "col-lg-4" action="/recipes/{{recipe.id }}?_method=PUT" method="POST">
+            <br>
+            <h2>Edit Recipe</h2>
+
+            {{ csrfField() }}
+            
+            <div class="mb-3">
+            <input type="text" class="form-control" placeholder="Add Title" name="title" value="{{recipe.title}}">
+            </div>
+
+            <div class="form-floating mb-3">
+            <textarea class="form-control" name="body"  placeholder="Type your recipe" id="recipe-body" style="height: 200px" >{{recipe.body}}</textarea>
+            </div>
+
+                <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </section>
+
+    <script>
+        tinymce.init({
+            selector: '#recipe-body'
+        });
+    </script>  
+
+
+
+
+
+
+
+@endsection

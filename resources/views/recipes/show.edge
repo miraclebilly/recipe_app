@@ -1,0 +1,27 @@
+@layout('layouts/main')
+@set('title', '')
+
+@section('body')
+<div>
+
+    {{--  Its show the entire activities going on in this template  --}}
+    {{--  {{inspect(auth.user.id)}}
+    {{inspect(recipe)}}  --}}
+    @if(auth.user?.id == recipe.userId)
+        <a href="{{recipe.id}}/edit">Edit</a>
+
+        <form action="/recipes/{{recipe.id }}?_method=DELETE" method="POST">
+            {{ csrfField() }}
+            <button>Delete</button>
+        </form>
+    @endif
+
+</div>
+
+
+<h1>{{recipe.title}}</h1>
+<p>{{{recipe.body}}}</p>
+
+
+
+@endsection
