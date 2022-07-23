@@ -3,7 +3,23 @@
 
 @section('body')
 
-  <h1>This is the homepage</h1>
-
+  <h1>This is the Home Page</h1>
+<div class = "row g-4">
+    @each(recipe in recipes)
+  <div class = "col-3">
+      
+    
+      <div class="card">
+          <img src="https://images.pexels.com/photos/1656666/pexels-photo-1656666.jpeg?auto=compress&cs=tinysrgb&w=1600" class="card-img-top" alt="...">
+          <div class="card-body">
+          <h5 class="card-title"><a class="text-decoration-none link-dark" href="recipes/{{recipe.id}}">{{recipe.title }}</a></h5>
+            <p class="card-text">{{recipe.user.username}}</p>
+          </div>
+        </div>
+    
+  </div>
+  @endeach
+</div>
+  
 
 @endsection

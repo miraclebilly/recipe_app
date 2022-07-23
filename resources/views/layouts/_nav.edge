@@ -9,7 +9,7 @@
              
             @if(auth.isLoggedIn)
              <a class="nav-link" href="{{route('AuthController.logout')}}">Logout</a>
-             <a class="nav-link" href="/addrecipe">Add Recipe</a>
+             <a class="nav-link" href="/recipes/new">Add Recipe</a>
             @else 
              <a class="nav-link" href="/signup">Sign Up</a>
              <a class="nav-link" href="/login">Login</a>

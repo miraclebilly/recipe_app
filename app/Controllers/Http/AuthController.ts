@@ -1,7 +1,10 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
+import Recipe from 'App/Models/Recipe'
 import CreateUserValidator from 'App/Validators/CreateUserValidator'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import { rules,  schema } from '@ioc:Adonis/Core/Validator'
+import View from '@ioc:Adonis/Core/View';
 
 
 
@@ -36,8 +39,6 @@ export default class AuthController {
         public async newLogin({ request, auth, session, response}: HttpContextContract){
             const { email, password } = request.all()
 
-
-
             try {
                 await auth.attempt(email, password)
                 session.flash({success: 'Logged in successfully'})
@@ -56,4 +57,6 @@ export default class AuthController {
             session.flash({success: 'Logged out successfully'})
             return response.redirect('/login')
         }
+
+
 }
