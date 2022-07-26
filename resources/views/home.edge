@@ -19,7 +19,20 @@
     
   </div>
   @endeach
-</div>
   
-
+  @if(recipes.lastPage > 1)
+    <div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              @each(anchor in recipes.getUrlsForRange(1, recipes.lastPage))            
+            <li class="page-item"><a class="page-link {{anchor.isActive ? 'active' : ''}}" href="{{anchor.url}}">{{anchor.page}}</a></li>
+              @endeach            
+            </ul>
+          </nav>     
+    </div>
+   
+  @endif
+ 
+  
 @endsection
+
