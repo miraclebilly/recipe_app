@@ -16,6 +16,9 @@ export default class Recipe extends BaseModel {
   @column()
   public userId: number
 
+  @column()
+  public imageUrl: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
