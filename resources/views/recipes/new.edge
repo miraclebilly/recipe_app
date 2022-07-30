@@ -4,21 +4,48 @@
 @section('body')
     <section class="row justify-content-center">
 
-        <form class = "col-lg-4" action = "/recipes" method = "post">
+        <form class = "col-lg-4" action = "/recipes" method = "post" enctype="multipart/form-data">
             <br>
             <h2>Add Recipe</h2>
 
             {{ csrfField() }}
             
             <div class="mb-3">
-                  <input type="text" class="form-control" placeholder="Add Title" name="title">
+                  <input type="text" placeholder="Add Title" name="title"
+                    class="form-control {{ flashMessages.get('errors.title') ? 'is-invalid' : '' }} "
+                    value="{{ flashMessages.get('title') || ''}}"
+                  >
+                  @if (flashMessages.has('errors.title'))
+                    <div class = "invalid-feedback">
+                        {{ flashMessages.get('errors.title')}}
+                    </div>
+                @endif
+            </div>
+            <div class="mb-3">
+                <input type="file" name="image"
+                    class="form-control {{ flashMessages.get('imageError') ? 'is-invalid' : '' }} "
+                >
+                @if (flashMessages.has('imageError'))
+                    <div class = "invalid-feedback">
+                        {{ flashMessages.get('imageError')}}
+                    </div>
+                @endif
             </div>
 
             <div class="form-floating mb-3">
-                    <textarea class="form-control" name="body" placeholder="Type your recipe" id="recipe-body" style="height: 200px"></textarea>
+                    <textarea  name="body" placeholder="Type your recipe" id="recipe-body" style="height: 200px"
+                    class="form-control {{ flashMessages.get('errors.body') ? 'is-invalid' : '' }} "
+                    >{{ flashMessages.get('body') || ''}}</textarea>
+                    
+
+                    @if (flashMessages.has('errors.body'))
+                        <div class = "invalid-feedback">
+                            {{ flashMessages.get('errors.body')}}
+                        </div>
+                    @endif
             </div>
 
-                <button type="submit" class="btn btn-primary">Post</button>
+            <button type="submit" class="btn btn-primary">Create</button>
         </form>
     </section>
 

@@ -10,6 +10,7 @@ export default class extends BaseSchema {
       table.text('body').notNullable()
       table.integer('user_id').references('users.id').index().notNullable()
       
+      
 
 
       /**
