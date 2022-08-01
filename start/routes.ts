@@ -21,7 +21,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 
-Route.get('/', 'HomeController.index')
+Route.get('/', 'HomeController.index').as('homePage')
 
 //Users
 Route.get('/signup', 'AuthController.new').as('newUser')
