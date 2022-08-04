@@ -4,12 +4,23 @@ import Recipe from "../../Models/Recipe";
 
 export default class HomeController{
 
-    async index({view, request}: HttpContextContract){
+    async index({view, auth, request}: HttpContextContract){
         const page = request.input('page', 1)
-        const query = request.input('query', '')
+        const query = request.input('query')
+        const viewMyRecipes = request.input('myrecipes')
         const limit = 8
-        const recipes = await Recipe.query().whereILike('title', `%${query}%`).orderBy('created_at', 'desc').preload('user').paginate(page, limit)
-        // recipes.baseUrl('/')
+        let recipesQuery = Recipe.query();
+
+        if (viewMyRecipes === 'true') {
+            recipesQuery = recipesQuery.where('user_id', '=', auth.user.id)
+        }
+
+        if (query) {
+            recipesQuery = recipesQuery.whereILike('title', `%${query}%`)
+        }
+
+        const recipes = await recipesQuery.orderBy('created_at', 'desc').preload('user').paginate(page, limit);
+    
         return view.render('home', {recipes} )
     }
 }
