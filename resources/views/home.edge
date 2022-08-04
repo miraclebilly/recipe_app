@@ -3,16 +3,27 @@
 
 @section('body')
 
+
+<div class="d-flex align-items-center justify-content-between">
   @if(request.input('query'))
     <div class="d-flex align-items-center">
-        <h2 class="my-4 me-3">Search result for "{{request.input('query')}}"</h2>
-        <span class="badge rounded-pill text-bg-warning">{{recipes.total}}</span>
+        <h2 class="me-3 my-4">Search result for "{{  request.input('query')  }}" </h2>
+        <span class="badge rounded-pill text-bg-dark">{{recipes.total}}</span>
     </div>
   @else
-    <h2 class="my-4">Recipes</h2>
+    <h2 class="my-4 me-3">
+      {{request.input('myrecipes') === 'true' ? 'My' : 'All'}} Recipes</h2>
   @endif
-
-  <div class = "row g-4">
+  @if(auth.isLoggedIn)
+    @if( request.input('myrecipes') === 'true')
+      <a href="/" class="btn btn-info my-4 align-right">All Recipes</a>
+    @else
+      <a href="?myrecipes=true" class="btn btn-info my-4 align-right">My Recipes</a>
+    @endif
+  @endif
+</div>
+  
+<div class = "row g-4">
     @each(recipe in recipes)
       <div class = "col-3">
       
