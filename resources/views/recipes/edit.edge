@@ -7,12 +7,12 @@
 
 <form class = "col-lg-4" action="/recipes/{{recipe.id }}?_method=PUT" method="POST" enctype="multipart/form-data">
             <br>
-            <h2>Edit Recipe</h2>
+        <h2>{{t('recipes.editRecipe')}}</h2>
 
             {{ csrfField() }}
             
             <div class="mb-3">
-                <input type="text"  placeholder="Add Title" name="title"
+            <input type="text"  placeholder="{{t('recipes.addTitle')}}" name="title"
                     class="form-control {{ flashMessages.get('errors.title') ? 'is-invalid' : '' }} "
                     value="{{ flashMessages.get('title') || recipe.title}}">
                 @if (flashMessages.has('errors.title'))
@@ -33,7 +33,7 @@
             </div>
 
             <div class="form-floating mb-3">
-                <textarea  name="body"  placeholder="Type your recipe" id="recipe-body" style="height: 200px" 
+            <textarea  name="body"  placeholder="{{t('recipes.typeRecipe')}}" id="recipe-body" style="height: 200px" 
                     class="form-control {{ flashMessages.get('errors.body') ? 'is-invalid' : '' }} ">{{flashMessages.get('body') || recipe.body}}</textarea>
                 @if (flashMessages.has('errors.body'))
                     <div class = "invalid-feedback">
@@ -42,7 +42,7 @@
                 @endif
             </div>
 
-                <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-primary">{{t('recipes.update')}}</button>
         </form>
     </section>
 

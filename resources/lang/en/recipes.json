@@ -1,0 +1,16 @@
+{
+    "allRecipes": "All Recipes",
+    "myRecipes": "My Recipes",
+    "edit": "Edit",
+    "delete": "Delete",
+    "update": "Update",
+    "addRecipe": "Add Recipe",
+    "addTitle": "Add Title",
+    "typeRecipe": "Type Your Recipe",
+    "create": "Create",
+    "editRecipe": "Edit Recipe",
+    "imageError": "Image is invalid or more than 500kb",
+    "flashSuccess": "Recipe created successfully",
+    "flashUpdate": "Recipe updated successfully",
+    "flashDelete": "Recipe deleted successfully"    
+}

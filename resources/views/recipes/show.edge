@@ -2,27 +2,28 @@
 @set('title', '')
 
 @section('body')
-<div class="d-flex align-items-center justify-content-between">
+
+<div class="d-flex gap-4 mb-3 my-4 justify-content-end">
+        
+   
+    @if(auth.user?.id == recipe.userId)
+<a href="{{recipe.id}}/edit">{{t('recipes.edit')}}</a>
+
+        <form action="/recipes/{{recipe.id }}?_method=DELETE" method="POST">
+            {{ csrfField() }}
+        <button type='submit' class='btn btn-danger btn-sm' onclick="return confirm('Delete this Recipe?');">{{t('recipes.delete')}}</button>
+        </form>
+    @endif
+
+</div>
+<img class="img-thumbnail col-4" src="{{recipe.imageUrl || 'https://images.pexels.com/photos/1656666/pexels-photo-1656666.jpeg?auto=compress&cs=tinysrgb&w=1600'}}">
+
+<div class="d-flex align-items-center justify-content-between my-4">
     <h1>{{recipe.title}}</h1>
-    <div class="d-flex gap-4">
-
-        {{--  Its show the entire activities going on in this template  --}}
-        {{--  {{inspect(auth.user.id)}}
-        {{inspect(recipe)}}  --}}
-        @if(auth.user?.id == recipe.userId)
-            <a href="{{recipe.id}}/edit">Edit</a>
-
-            <form action="/recipes/{{recipe.id }}?_method=DELETE" method="POST">
-                {{ csrfField() }}
-                <button type='submit' class='btn btn-danger btn-sm' onclick="return confirm('Delete this Recipe?');">Delete</button>
-            </form>
-        @endif
-
-    </div>
 </div>
 
 
-<p>{{{recipe.body}}}</p>
+<p class>{{{recipe.body}}}</p>
 
 
 

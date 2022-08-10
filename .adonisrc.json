@@ -30,18 +30,19 @@
     "@adonisjs/view",
     "@adonisjs/shield",
     "@adonisjs/auth",
-    "@adonisjs/lucid"
+    "@adonisjs/lucid",
+    "@adonisjs/i18n"
   ],
   "metaFiles": [
     {
       "pattern": "public/**",
       "reloadServer": false
-      
     },
     {
       "pattern": "resources/views/**/*.edge",
       "reloadServer": false
-    }
+    },
+    "resources/lang/**/*.(json|yaml)"
   ],
   "aceProviders": [
     "@adonisjs/repl"

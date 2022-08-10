@@ -1,0 +1,11 @@
+{
+  "shared": {},
+  "user": {
+    "required": "champ est requis",
+    "username.required": "Nom d'utilisateur est nécessaire",
+    "unique": "champ a été pris",
+    "confirmed": "le mot de passe ne correspond pas",
+    "minLength": "le mot de passe doit comporter au moins 5 caractères"
+
+  }
+}

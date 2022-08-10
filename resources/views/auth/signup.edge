@@ -7,14 +7,14 @@
         {{--  {{ inspect(flashMessages.all()) }}  --}}
 
 <form class = "col-lg-4" action = "/signup" method = "post">
-            <h1>Sign Up</h1>
+            <h1>{{t('auth.signUp')}}</h1>
 
             {{ csrfField() }}
 
             <div class="mb-3">
-                <label for="name" class="form-label">Username</label>
+            <label for="name" class="form-label">{{t('auth.username')}}</label>
                 <input 
-                    type="text"  name="username" placeholder="Username" 
+                    type="text"  name="username" placeholder="{{t('auth.username')}}" 
                     class="form-control {{ flashMessages.get('errors.username') ? 'is-invalid' : '' }} "
                     value="{{ flashMessages.get('username') || ''}}"
                 >
@@ -26,9 +26,9 @@
             </div>
 
             <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
+                <label for="email" class="form-label">{{t('auth.emailAddress')}}</label>
                 <input 
-                    type="text" name="email" placeholder="Email Address"
+                    type="text" name="email" placeholder="{{t('auth.emailAddress')}}"
                     class="form-control {{ flashMessages.get('errors.email') ? 'is-invalid': '' }}"
                     value="{{ flashMessages.has('email') ? flashMessages.get('email') : '' }}"
                 >
@@ -38,11 +38,11 @@
             </div>
 
             <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label">{{t('auth.password')}}</label>
                 <input 
                     type="password" class="form-control
                     {{ flashMessages.get('errors.password') ? 'is-invalid': '' }}"
-                    value="{{ flashMessages.has('password') ? flashMessages.get('password') : '' }}" name="password" placeholder="Password"
+                    value="{{ flashMessages.has('password') ? flashMessages.get('password') : '' }}" name="password" placeholder="{{t('auth.password')}}"
                 >
                 @if(flashMessages.has('errors.password'))
                 <div class="invalid-feedback">{{ flashMessages.get('errors.password') }} </div>
@@ -50,18 +50,18 @@
             </div>
 
             <div class="mb-3">
-                <label for="password_confirmation" class="form-label">Confirm Password</label>
+                <label for="password_confirmation" class="form-label">{{t('auth.confirmPassword')}}</label>
                 <input
                     type="password" class="form-control
                     {{ flashMessages.get('errors.password_confirmation') ? 'is-invalid': '' }}"
-                    value="{{ flashMessages.has('password_confirmation') ? flashMessages.get('password_confirmation') : '' }}" name="password_confirmation" placeholder="Confirm Password"
+                    value="{{ flashMessages.has('password_confirmation') ? flashMessages.get('password_confirmation') : '' }}" name="password_confirmation" placeholder="{{t('auth.confirmPassword')}}"
                 >
                 @if(flashMessages.has('errors.password_confirmation'))
                 <div class="invalid-feedback">{{ flashMessages.get('errors.password_confirmation') }} </div>
                 @endif
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">{{t('auth.submit')}}</button>
         </form>
     </section>  
 
