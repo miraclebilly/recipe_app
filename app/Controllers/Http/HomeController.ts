@@ -1,10 +1,11 @@
-import Recipe from "../../Models/Recipe";
+import Recipe from "../../Models/Recipe"
+import I18n from '@ioc:Adonis/Addons/I18n'
 
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class HomeController{
 
-    async index({view, auth, request}: HttpContextContract){
+    async index({view, auth, request, session }: HttpContextContract){
         const page = request.input('page', 1)
         const query = request.input('query')
         const viewMyRecipes = request.input('myrecipes')

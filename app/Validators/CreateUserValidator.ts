@@ -49,12 +49,6 @@ export default class CreateUserValidator {
    * }
    *
    */
-  public messages: CustomMessages = {
-    required: '{{ field }} is required',
-    unique: '{{ field }} has been taken',
-    confirmed: 'password does not match',
-    minLength: 'password should be atleast 5 characters'
+  public messages: CustomMessages = this.ctx.i18n.validatorMessages('validator.user')
     
-
-  }
 }

@@ -7,14 +7,14 @@
         {{--  {{ inspect(flashMessages.all()) }}  --}}
 
 <form class = "col-lg-4" action = "/login" method = "post">
-            <h1>Login</h1>
+            <h1>{{t('auth.login')}}</h1>
 
             {{ csrfField() }}
 
             <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
+                <label for="email" class="form-label">{{t('auth.emailAddress')}}</label>
                 <input 
-                    type="text" name="email" placeholder="Email Address"
+                    type="text" name="email" placeholder="{{t('auth.emailAddress')}}"
                     class="form-control {{ flashMessages.get('errors.email') ? 'is-invalid': '' }}"
                     value="{{ flashMessages.has('email') ? flashMessages.get('email') : '' }}"
                 >
@@ -24,18 +24,18 @@
             </div>
 
             <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label">{{t('auth.password')}}</label>
                 <input 
                     type="password" class="form-control
                     {{ flashMessages.get('errors.password') ? 'is-invalid': '' }}"
-                    value="{{ flashMessages.has('password') ? flashMessages.get('password') : '' }}" name="password" placeholder="Password"
+                    value="{{ flashMessages.has('password') ? flashMessages.get('password') : '' }}" name="password" placeholder="{{t('auth.password')}}"
                 >
                 @if(flashMessages.has('errors.password'))
                 <div class="invalid-feedback">{{ flashMessages.get('errors.password') }} </div>
                 @endif
             </div>
 
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary">{{t('auth.login')}}</button>
         </form>
     </section>  
 

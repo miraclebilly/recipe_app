@@ -4,6 +4,8 @@
 @section('body')
 
 
+{{--  {{inspect(session.all())}}  --}}
+
 <div class="d-flex align-items-center justify-content-between">
   @if(request.input('query'))
     <div class="d-flex align-items-center">
@@ -11,14 +13,19 @@
         <span class="badge rounded-pill text-bg-dark">{{recipes.total}}</span>
     </div>
   @else
-    <h2 class="my-4 me-3">
-      {{request.input('myrecipes') === 'true' ? 'My' : 'All'}} Recipes</h2>
+      @if(request.input('myrecipes')==='true')
+        <h2 class="my-4 me-3"> {{t('recipes.myRecipes')}}</h2>
+      @else
+      <h2 class="my-4 me-3"> {{t('recipes.allRecipes')}}</h2>
+      @endif  
+
+      {{--  {{request.input('myrecipes') === 'true' ? 'My' : 'All'}} Recipes</h2>  --}}
   @endif
   @if(auth.isLoggedIn)
     @if( request.input('myrecipes') === 'true')
-      <a href="/" class="btn btn-info my-4 align-right">All Recipes</a>
+      <a href="/" class="btn btn-info my-4 align-right">{{t('recipes.allRecipes')}}</a>
     @else
-      <a href="?myrecipes=true" class="btn btn-info my-4 align-right">My Recipes</a>
+      <a href="?myrecipes=true" class="btn btn-info my-4 align-right">{{t('recipes.myRecipes')}}</a>
     @endif
   @endif
 </div>
@@ -33,7 +40,7 @@
             style="max-height: 180px; object-fit: cover;" alt="...">
           <div class="card-body">
           <h5 class="card-title"><a class="text-decoration-none link-dark" href="recipes/{{recipe.id}}">{{recipe.title }}</a></h5>
-            <p class="card-text">{{recipe.user.username}}</p>
+            <p class="card-text text-capitalize">{{recipe.user.username}}</p>
           </div>
         </div>
     

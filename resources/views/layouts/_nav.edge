@@ -5,27 +5,36 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-             
-            @if(auth.isLoggedIn)
-             <a class="nav-link" href="{{route('AuthController.logout')}}">Logout</a>
-             <a class="nav-link" href="/recipes/new">Add Recipe</a>
-            @else 
-             <a class="nav-link" href="/signup">Sign Up</a>
-             <a class="nav-link" href="/login">Login</a>
-           @endif
-                               
-              
-            </div>
+              <div class="navbar-nav">
+                
+                @if(auth.isLoggedIn)
+                  <a class="nav-link" href="{{route('AuthController.logout')}}">{{t('nav.logout')}}</a>
+                  <a class="nav-link" href="/recipes/new">{{t('nav.addRecipe')}}</a>
+                  @else 
+                  <a class="nav-link" href="/signup">{{t('nav.signup')}}</a>
+                  <a class="nav-link" href="/login">{{t('nav.login')}}</a>
+                @endif
+              </div>
+              <div class="dropdown">
+                  <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{t('nav.language')}}
+                  </a>
+                
+                  <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="?lang=en">{{t('nav.english')}}</a></li>
+                  <li><a class="dropdown-item" href="?lang=fr">{{t('nav.french')}}</a></li>
+                  </ul>
+                </div>
           </div>
+          
           @if(request.matchesRoute('homePage'))
             <form class="d-flex" role="search">
               @if(request.input('myrecipes') === 'true')
                 <input type="hidden" name="myrecipes" value="true" />
               @endif
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query" 
+              <input class="form-control me-2" type="search" placeholder="{{t('nav.search')}}" aria-label="Search" name="query" 
                 value="{{ request.input('query') ? request.input('query') : '' }}">
-              <button class="btn btn-outline-success" type="submit">Search</button>
+              <button class="btn btn-outline-success" type="submit">{{t('nav.search')}}</button>
             </form>
           @endif
         </div>

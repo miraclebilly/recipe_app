@@ -1,0 +1,11 @@
+{
+  "shared": {},
+  "user": {
+    "required": "field  is required",
+    "username.required": "username is required",
+    "unique": "field  has been taken",
+    "confirmed": "password does not match",
+    "minLength": "password should be atleast 5 characters"
+
+  }
+}

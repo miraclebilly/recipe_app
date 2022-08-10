@@ -24,11 +24,11 @@ export default class AuthController {
         return response.redirect('/login')
     }
 
-        public async login ({view, auth}: HttpContextContract){
+        public async login ({view, auth, i18n}: HttpContextContract){
             try {
                 await auth.authenticate()
                 if (auth.isLoggedIn) {
-                  session.flash({ warning: 'Already logged in' })
+                  session.flash({ warning: i18n.formatMessage('auth.alreadyLoggedIn')})
                   return response.redirect("/")
                 }
               } catch (error) {}
@@ -36,25 +36,25 @@ export default class AuthController {
             return view.render('auth/login')
         }
 
-        public async newLogin({ request, auth, session, response}: HttpContextContract){
+        public async newLogin({ request, auth, session, response, i18n}: HttpContextContract){
             const { email, password } = request.all()
 
             try {
                 await auth.attempt(email, password)
-                session.flash({success: 'Logged in successfully'})
+                session.flash({success: i18n.formatMessage('auth.loggedSuccess')})
                 return response.redirect('/')
                 
             } catch (error) {
-                session.flash({error: 'Invalid email and/or password'})
+                session.flash({error: i18n.formatMessage('auth.invalidLoginError')})
                 session.flash({ email })
                 return response.redirect('/login')
             }
             
         }
 
-        public async logout({ auth, session, response}: HttpContextContract){
+        public async logout({ auth, session, response, i18n}: HttpContextContract){
             await auth.logout()
-            session.flash({success: 'Logged out successfully'})
+            session.flash({success: i18n.formatMessage('auth.loggedOut')})
             return response.redirect('/login')
         }
 

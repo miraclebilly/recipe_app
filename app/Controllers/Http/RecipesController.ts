@@ -8,6 +8,7 @@ import { rules,  schema } from '@ioc:Adonis/Core/Validator'
 import View from '@ioc:Adonis/Core/View';
 import AuthController from './AuthController';
 import { v2 as cloudinary } from 'cloudinary'
+import I18n from '@ioc:Adonis/Addons/I18n';
 
 
 
@@ -18,7 +19,7 @@ export default class RecipesController {
             return view.render('recipes/new')
         }
 
-        public async create({ request, auth, session, response}: HttpContextContract){
+        public async create({ request, auth, session, response, i18n}: HttpContextContract){
             // Validations
             const image = request.file('image', {
                 size: '500kb',
@@ -27,7 +28,7 @@ export default class RecipesController {
             const imageIsInvalid = !image || !image.isValid;
             if(imageIsInvalid){ 
                 session.flash({
-                    imageError: "Image is invalid or more than 500kb"
+                    imageError: i18n.formatMessage('recipes.imageError')
                 });
             }
             const recipeParams = await request.validate(RecipeValidator)
@@ -53,13 +54,13 @@ export default class RecipesController {
             }
 
             await recipe.save()
-            session.flash({success: 'Recipe created successfully'})
+            session.flash({success: i18n.formatMessage('recipes.flashSuccess')})
             return response.redirect('/')     
             
         }
         // GET /recipes/:id
         public async show({params, view, auth, response }:HttpContextContract){
-            const recipe = await Recipe.find(params.id)            
+            const recipe = await Recipe.find(params.id)  
             return view.render('recipes/show', {recipe})
         }
 
@@ -74,7 +75,7 @@ export default class RecipesController {
         }
 
         //PUT /recipes/:id
-        public async update({params, view, session, request, response}: HttpContextContract){
+        public async update({params, view, session, request, response, i18n}: HttpContextContract){
             //image validator
             const image = request.file('image', {
                 size: '500kb',
@@ -82,7 +83,7 @@ export default class RecipesController {
             })
             const imageIsInvalid = !image || !image.isValid;
             if(imageIsInvalid){
-                session.flash({imageError: "Image is invalid or more than 500kb"})
+                session.flash({imageError: i18n.formatMessage('recipes.imageError')})
             }
             
             const recipe = await Recipe.findOrFail(params.id);
@@ -111,15 +112,15 @@ export default class RecipesController {
             }
 
             await recipe.save()
-            session.flash({success: 'Recipe updated successfully'})
+            session.flash({success: i18n.formatMessage('recipes.flashUpdate')})
             return response.redirect(`/recipes/${recipe.id}`);
         }
 
         // DELETE /recipes/:id
-        public async delete({params, auth, session, response}:HttpContextContract){
+        public async delete({params, auth, session, response, i18n}:HttpContextContract){
             const recipe = await Recipe.findOrFail(params.id);
             await recipe.delete();
-            session.flash({error: 'Recipe deleted successfully'})
+            session.flash({error: i18n.formatMessage('recipes.flashDelete')})
             return response.redirect('/')
         }
 }
