@@ -1,14 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import User from 'App/Models/User'
 import Recipe from 'App/Models/Recipe'
-import CreateUserValidator from 'App/Validators/CreateUserValidator'
 import RecipeValidator from 'App/Validators/RecipeValidator'
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import { rules,  schema } from '@ioc:Adonis/Core/Validator'
-import View from '@ioc:Adonis/Core/View';
-import AuthController from './AuthController';
 import { v2 as cloudinary } from 'cloudinary'
-import I18n from '@ioc:Adonis/Addons/I18n';
 
 
 
@@ -41,12 +34,12 @@ export default class RecipesController {
             const recipe = new Recipe();
             recipe.title = recipeParams.title
             recipe.body = recipeParams.body
-            recipe.userId = auth.user?.id
+            recipe.userId = auth.user?.id as number
 
             // image upload
             cloudinary.config()
             try{
-                 const result =  await cloudinary.uploader.upload(image.tmpPath)             
+                 const result =  await cloudinary.uploader.upload(image.tmpPath as string)             
                 recipe.imageUrl = result.url
             }
             catch(error){
@@ -59,7 +52,7 @@ export default class RecipesController {
             
         }
         // GET /recipes/:id
-        public async show({params, view, auth, response }:HttpContextContract){
+        public async show({params, view }:HttpContextContract){
             const recipe = await Recipe.find(params.id)  
             return view.render('recipes/show', {recipe})
         }
@@ -75,7 +68,7 @@ export default class RecipesController {
         }
 
         //PUT /recipes/:id
-        public async update({params, view, session, request, response, i18n}: HttpContextContract){
+        public async update({params, session, request, response, i18n}: HttpContextContract){
             //image validator
             const image = request.file('image', {
                 size: '500kb',
@@ -104,7 +97,7 @@ export default class RecipesController {
             cloudinary.config()
 
             try{
-                 const result =  await cloudinary.uploader.upload(image.tmpPath)             
+                 const result =  await cloudinary.uploader.upload(image.tmpPath as string)             
                 recipe.imageUrl = result.url
             }
             catch(error){
@@ -117,7 +110,7 @@ export default class RecipesController {
         }
 
         // DELETE /recipes/:id
-        public async delete({params, auth, session, response, i18n}:HttpContextContract){
+        public async delete({params, session, response, i18n}:HttpContextContract){
             const recipe = await Recipe.findOrFail(params.id);
             await recipe.delete();
             session.flash({error: i18n.formatMessage('recipes.flashDelete')})

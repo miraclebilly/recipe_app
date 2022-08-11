@@ -1,5 +1,4 @@
-import { schema, rules } from '@ioc:Adonis/Core/Validator'
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class RecipeValidator {
     public schema = schema.create({

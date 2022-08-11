@@ -1,11 +1,10 @@
 import Recipe from "../../Models/Recipe"
-import I18n from '@ioc:Adonis/Addons/I18n'
 
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class HomeController{
 
-    async index({view, auth, request, session }: HttpContextContract){
+    async index({view, auth, request }: HttpContextContract){
         const page = request.input('page', 1)
         const query = request.input('query')
         const viewMyRecipes = request.input('myrecipes')
@@ -13,7 +12,7 @@ export default class HomeController{
         let recipesQuery = Recipe.query();
 
         if (viewMyRecipes === 'true') {
-            recipesQuery = recipesQuery.where('user_id', '=', auth.user.id)
+            recipesQuery = recipesQuery.where('user_id', '=', auth.user?.id as number)
         }
 
         if (query) {

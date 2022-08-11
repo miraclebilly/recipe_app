@@ -1,10 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
-import Recipe from 'App/Models/Recipe'
 import CreateUserValidator from 'App/Validators/CreateUserValidator'
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import { rules,  schema } from '@ioc:Adonis/Core/Validator'
-import View from '@ioc:Adonis/Core/View';
 
 
 
@@ -15,7 +11,7 @@ export default class AuthController {
         return view.render('auth/signup')
     }
 
-    public async create ({request, auth, response}: HttpContextContract){
+    public async create ({request, response}: HttpContextContract){
         const validatedData = await request.validate(CreateUserValidator)
         const user = await User.create(validatedData)
         await user.save();
@@ -24,7 +20,7 @@ export default class AuthController {
         return response.redirect('/login')
     }
 
-        public async login ({view, auth, i18n}: HttpContextContract){
+        public async login ({response, view, auth, i18n, session}: HttpContextContract){
             try {
                 await auth.authenticate()
                 if (auth.isLoggedIn) {
