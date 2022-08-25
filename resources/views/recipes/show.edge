@@ -18,12 +18,65 @@
 </div>
 <img class="img-thumbnail col-4" src="{{recipe.imageUrl || 'https://images.pexels.com/photos/1656666/pexels-photo-1656666.jpeg?auto=compress&cs=tinysrgb&w=1600'}}">
 
-<div class="d-flex align-items-center justify-content-between my-4">
-    <h1>{{recipe.title}}</h1>
+<div class="d-flex align-items-center my-3">
+    <h1 class="me-3">{{recipe.title}}</h1> 
+    <h1 class="fw-light fst-italic text-capitalize"> - {{recipe.user.username}}</h1>
 </div>
+<p class="fw-bold">Posted on {{i18n.formatDate(new Date(recipe.createdAt),{dateStyle: 'long'})}}</p>
 
 
 <p class>{{{recipe.body}}}</p>
+
+<br>
+<hr>
+<div class="h4 pb-2 mb-4 text-success ">
+    {{t('recipes.comment')}} ({{commentsCount}})
+  </div>
+
+
+@each(comment in comments)
+    @if(recipe.id == comment.recipeId)
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex mb-1">
+                        <h6 class="text-capitalize me-3 mb-0">{{comment.user.username}} </h6> 
+                        <small class="fw-light text-muted">{{i18n.formatDate(new Date(comment.createdAt),{dateStyle: 'long', timeStyle: 'short'})}}</small>
+                </div>               
+                
+                {{comment.comment}} 
+                @if(auth.user?.id == comment.userId) 
+                    <div class="d-flex flex-row align-items-center">
+                        <a href="/comments/{{comment.id}}/edit">{{t('recipes.edit')}}</a>
+                            <form action="/comments/{{comment.id}}?_method=DELETE" method="POST">
+                                {{ csrfField() }}
+                                <button type='submit' class="btn btn-link" onclick="return confirm('Delete this Comment?');">{{t('recipes.delete')}}</button>
+                            </form>
+                        
+                    </div>     
+                @endif 
+               
+            </div>
+      </div>
+    @endif
+@endeach
+
+@if(auth.user?.id)
+    <h5 class="mb-3 mt-5">{{t('recipes.addComment')}}</h5>
+    <form class="mb-3" action="/comments" method="POST">
+        {{ csrfField() }}
+        <input type="hidden" name="recipe_id" value="{{recipe.id}}" />
+        
+        <div class="form-floating  mb-3">
+            <textarea class="form-control" placeholder="Leave a comment here" name="comment" id="floatingTextarea" ></textarea>
+        </div>
+
+    <button type="submit" class="btn btn-primary">{{t('recipes.comment')}}</button>
+        
+    </form>
+@endif 
+
+
+
 
 
 

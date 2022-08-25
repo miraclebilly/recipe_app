@@ -12,5 +12,7 @@
     "imageError": "Image is invalid or more than 500kb",
     "flashSuccess": "Recipe created successfully",
     "flashUpdate": "Recipe updated successfully",
-    "flashDelete": "Recipe deleted successfully"    
+    "flashDelete": "Recipe deleted successfully",
+    "comment": "Comment",
+    "addComment": "Add Comment"    
 }

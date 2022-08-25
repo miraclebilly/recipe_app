@@ -1,0 +1,21 @@
+@layout('layouts/main')
+@set('title', '')
+
+@section('body')
+<br>
+
+<h5 class="mb-3">Edit Comment</h5>
+<form class="mb-3" action="/comments/{{comment.id}}?_method=PUT" method="POST">
+       {{ csrfField() }}
+    <input type="hidden" name="recipe_id" value="{{comment.recipeId}}" />
+    
+    <div class="form-floating  mb-3">
+
+        <textarea class="form-control"  name="comment" id="floatingTextarea">{{comment.comment}}</textarea>
+    </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+        
+</form>
+
+@endsection
