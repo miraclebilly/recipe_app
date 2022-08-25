@@ -12,7 +12,9 @@
     "imageError": "L'image n'est pas valide ou dépasse 500 Ko",
     "flashSuccess": "Recette créée avec succès",
     "flashUpdate": "Recette mise à jour avec succès",
-    "flashDelete": "Recette supprimée avec succès"    
+    "flashDelete": "Recette supprimée avec succès",
+    "comment": "Commentaire",
+    "addComment": "Ajouter un commentaire"    
         
         
         

@@ -35,10 +35,27 @@ Route.post('/login', 'AuthController.newLogin')
 Route.get('/logout', 'AuthController.logout')
 
 //Recipe
-Route.get('/recipes/new', 'RecipesController.new')
-Route.post('/recipes', 'RecipesController.create')
 Route.get('/recipes/:id', 'RecipesController.show')
-Route.get('/recipes/:id/edit', 'RecipesController.edit')
-Route.put('/recipes/:id', 'RecipesController.update')
-Route.delete('/recipes/:id', 'RecipesController.delete')
+
+Route.group(()=>{
+    Route.get('/recipes/new', 'RecipesController.new')
+    Route.post('/recipes', 'RecipesController.create')
+    Route.get('/recipes/:id/edit', 'RecipesController.edit')
+    Route.put('/recipes/:id', 'RecipesController.update')
+    Route.delete('/recipes/:id', 'RecipesController.delete')
+}).middleware(["auth"])
+
+
+//Comment
+
+Route.post('/comments', 'CommentsController.create')
+
+Route.group(()=>{
+    Route.get('/comments/:id/edit', 'CommentsController.edit')
+    Route.put('/comments/:id', 'CommentsController.update')
+    Route.delete('/comments/:id', 'CommentsController.delete')
+}).middleware(["auth", "comment"])
+
+
+
 
