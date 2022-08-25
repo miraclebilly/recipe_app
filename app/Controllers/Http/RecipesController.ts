@@ -2,7 +2,6 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Recipe from 'App/Models/Recipe'
 import RecipeValidator from 'App/Validators/RecipeValidator'
 import { v2 as cloudinary } from 'cloudinary'
-import CommentsController from 'App/Controllers/Http/CommentsController'
 import RecipeComment from '../../Models/RecipeComment';
 
 
@@ -55,7 +54,7 @@ export default class RecipesController {
         }
         // GET /recipes/:id
         public async show({params, view }:HttpContextContract){
-            const recipe = await Recipe.find(params.id)
+            const recipe = await Recipe.findOrFail(params.id)
             await recipe.load('user')
             
             const comments = await  RecipeComment.query().orderBy('created_at', 'asc').where('recipe_id', '=', recipe.id).preload('user') 
