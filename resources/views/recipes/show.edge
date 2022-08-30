@@ -28,6 +28,38 @@
 <p class>{{{recipe.body}}}</p>
 
 <br>
+
+@if(auth.user?.id)
+    <div class="d-flex ">
+        <form class="me-3" action="/favourites/like?_method=PUT" method="POST">
+            {{ csrfField() }}
+            <input type="hidden" name="recipe_id" value="{{recipe.id}}" />
+            @if(currentUserFavourite?.favourited) 
+                <button type="submit" class="btn  btn-outline-secondary" name="id" disabled>Liked <i class="bi bi-hand-thumbs-up"></i> ({{favouritesCount}})</button>
+            @else
+                <button type="submit" class="btn  btn-outline-dark" name="id">Like <i class="bi bi-hand-thumbs-up"></i> ({{favouritesCount}})</button>
+            @endif
+        </form>
+        
+    
+        <form action="/favourites/dislike?_method=PUT" method="POST">
+            {{ csrfField() }}
+            <input type="hidden" name="recipe_id" value="{{recipe.id}}" />
+            @if(!currentUserFavourite || currentUserFavourite.favourited) 
+                <button type="submit" class="btn  btn-outline-dark" name="id">Dislike<i class="bi bi-hand-thumbs-down"></i></button>
+            @else
+                <button type="submit" class="btn  btn-outline-secondary" name="id" disabled>Disliked <i class="bi bi-hand-thumbs-down"></i></button>
+            @endif
+        </form>
+    </div>
+ @endif
+
+ @if(!auth.user?.id)
+    <button type="submit" class="btn  btn-outline-secondary" name="id" disabled>Liked <i class="bi bi-hand-thumbs-up"></i> ({{favouritesCount}})</button>
+@endif
+
+
+{{--  COMMENTS VIEW  --}}
 <hr>
 <div class="h4 pb-2 mb-4 text-success ">
     {{t('recipes.comment')}} ({{commentsCount}})
@@ -60,6 +92,7 @@
     @endif
 @endeach
 
+{{--  ADD COMMENT  --}}
 @if(auth.user?.id)
     <h5 class="mb-3 mt-5">{{t('recipes.addComment')}}</h5>
     <form class="mb-3" action="/comments" method="POST">

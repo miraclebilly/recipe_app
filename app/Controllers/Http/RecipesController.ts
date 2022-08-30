@@ -2,7 +2,8 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Recipe from 'App/Models/Recipe'
 import RecipeValidator from 'App/Validators/RecipeValidator'
 import { v2 as cloudinary } from 'cloudinary'
-import RecipeComment from '../../Models/RecipeComment';
+import RecipeComment from '../../Models/RecipeComment'
+import Favourite from '../../Models/Favourite';
 
 
 
@@ -15,6 +16,7 @@ export default class RecipesController {
 
         public async create({ request, auth, session, response, i18n}: HttpContextContract){
             // Validations
+            
             const image = request.file('image', {
                 size: '500kb',
                 extnames: ['jpg', 'png'],
@@ -53,7 +55,7 @@ export default class RecipesController {
             
         }
         // GET /recipes/:id
-        public async show({params, view }:HttpContextContract){
+        public async show({params, view, auth }:HttpContextContract){
             const recipe = await Recipe.findOrFail(params.id)
             await recipe.load('user')
             
@@ -61,8 +63,18 @@ export default class RecipesController {
             
             const commentsCount = comments.length
             
-
-            return view.render('recipes/show', {recipe, comments, commentsCount})
+           let  currentUserFavourite
+            if(!auth.user?.id){
+             currentUserFavourite = await Favourite.query().where('recipe_id', '=', recipe.id)
+            }else{
+             currentUserFavourite = await Favourite.query().where('recipe_id', '=', recipe.id).where('user_id', '=', auth.user?.id).first()
+            }
+           
+            const countFavouriteLike = await Favourite.query().where('recipe_id', '=', recipe.id).where('favourited', '=', true)
+            
+            const favouritesCount = countFavouriteLike.length
+            
+            return view.render('recipes/show', {recipe, comments, commentsCount, currentUserFavourite, favouritesCount})
         }
 
         //GET /recipes/:id/edit

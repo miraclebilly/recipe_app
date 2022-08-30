@@ -35,7 +35,6 @@ Route.post('/login', 'AuthController.newLogin')
 Route.get('/logout', 'AuthController.logout')
 
 //Recipe
-Route.get('/recipes/:id', 'RecipesController.show')
 
 Route.group(()=>{
     Route.get('/recipes/new', 'RecipesController.new')
@@ -44,6 +43,8 @@ Route.group(()=>{
     Route.put('/recipes/:id', 'RecipesController.update')
     Route.delete('/recipes/:id', 'RecipesController.delete')
 }).middleware(["auth"])
+
+Route.get('/recipes/:id', 'RecipesController.show')
 
 
 //Comment
@@ -55,6 +56,9 @@ Route.group(()=>{
     Route.put('/comments/:id', 'CommentsController.update')
     Route.delete('/comments/:id', 'CommentsController.delete')
 }).middleware(["auth", "comment"])
+
+Route.put('/favourites/like', 'FavouritesController.like')
+Route.put('/favourites/dislike', 'FavouritesController.dislike')
 
 
 
