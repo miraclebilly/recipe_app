@@ -14,5 +14,11 @@
     "flashUpdate": "Recipe updated successfully",
     "flashDelete": "Recipe deleted successfully",
     "comment": "Comment",
-    "addComment": "Add Comment"    
+    "addComment": "Add Comment",
+    "like": "Like",
+    "dislike":"Dislike",
+    "liked": "Liked",
+    "disliked":"Disliked"
+      
+      
 }

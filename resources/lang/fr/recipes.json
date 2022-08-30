@@ -14,7 +14,11 @@
     "flashUpdate": "Recette mise à jour avec succès",
     "flashDelete": "Recette supprimée avec succès",
     "comment": "Commentaire",
-    "addComment": "Ajouter un commentaire"    
+    "addComment": "Ajouter un commentaire",
+    "like": "Comme",
+    "dislike":"Ne pas aimer",
+    "liked": "Aimé",
+    "disliked":"N'a pas aimé"    
         
         
         
