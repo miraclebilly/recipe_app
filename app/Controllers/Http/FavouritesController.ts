@@ -12,7 +12,7 @@ export default class FavouritesController {
         favourite.userId = auth.user?.id as number;
         favourite.recipeId = favouriteParams.recipe_id
 
-        const currentUserFavourite = await Favourite.query().where('recipe_id', '=', favouriteParams.recipe_id).where('user_id', '=', auth.user?.id).first()
+        const currentUserFavourite = await Favourite.query().where('recipe_id', '=', favouriteParams.recipe_id).where('user_id', '=', auth.user?.id as number).first()
         if(currentUserFavourite){
          favourite = currentUserFavourite   
         }
@@ -25,13 +25,13 @@ export default class FavouritesController {
         
     }
 
-    public async dislike({params, request,auth, response}: HttpContextContract){
+    public async dislike({request,auth, response}: HttpContextContract){
         const favouriteParams = await request.validate(FavouriteValidator)
         let favourite = new Favourite()
         favourite.userId = auth.user?.id as number;
         favourite.recipeId = favouriteParams.recipe_id
 
-        const currentUserFavourite = await Favourite.query().where('recipe_id', '=', favouriteParams.recipe_id).where('user_id', '=', auth.user?.id).first()
+        const currentUserFavourite = await Favourite.query().where('recipe_id', '=', favouriteParams.recipe_id).where('user_id', '=', auth.user?.id as number).first()
         if(currentUserFavourite){
          favourite = currentUserFavourite   
         }
