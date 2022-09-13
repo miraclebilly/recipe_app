@@ -57,8 +57,10 @@ Route.group(()=>{
     Route.delete('/comments/:id', 'CommentsController.delete')
 }).middleware(["auth", "comment"])
 
-Route.put('/favourites/like', 'FavouritesController.like')
-Route.put('/favourites/dislike', 'FavouritesController.dislike')
+Route.group(()=>{
+    Route.put('/favourites/like', 'FavouritesController.like')
+    Route.put('/favourites/dislike', 'FavouritesController.dislike')
+}).middleware(['auth'])
 
 
 

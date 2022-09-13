@@ -18,7 +18,8 @@
     "like": "Like",
     "dislike":"Dislike",
     "liked": "Liked",
-    "disliked":"Disliked"
+    "disliked":"Disliked",
+    "popularRecipes": "Popular Recipes" 
       
       
 }
