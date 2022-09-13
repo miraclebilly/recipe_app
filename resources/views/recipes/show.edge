@@ -45,11 +45,9 @@
         <form action="/favourites/dislike?_method=PUT" method="POST">
             {{ csrfField() }}
             <input type="hidden" name="recipe_id" value="{{recipe.id}}" />
-            @if(!currentUserFavourite || currentUserFavourite.favourited) 
+            @if(currentUserFavourite?.favourited) 
                 <button type="submit" class="btn  btn-outline-dark" name="id">{{t('recipes.dislike')}}<i class="bi bi-hand-thumbs-down"></i></button>
-            @else
-                <button type="submit" class="btn  btn-outline-secondary" name="id" disabled>{{t('recipes.disliked')}}<i class="bi bi-hand-thumbs-down"></i></button>
-            @endif
+            @endif 
         </form>
     </div>
  @endif

@@ -29,26 +29,24 @@
     @endif
   @endif
 </div>
-  
-<div class = "row g-4">
-    @each(recipe in recipes)
-      <div class = "col-3">
-      
-    
-      <div class="card">
-          <img src="{{recipe.imageUrl || 'https://images.pexels.com/photos/1656666/pexels-photo-1656666.jpeg?auto=compress&cs=tinysrgb&w=1600'}}" class="card-img-top" 
-            style="max-height: 180px; object-fit: cover;" alt="...">
-          <div class="card-body">
-          <h5 class="card-title"><a class="text-decoration-none link-dark" href="recipes/{{recipe.id}}">{{recipe.title }}</a></h5>
-            <p class="card-text text-capitalize">{{recipe.user.username}}</p>
-          </div>
+<div class="row g-5">
+    <div class="col-sm-12 col-md-9">
+      <div class = "row g-4">
+          @each(recipe in recipes)
+            <div class = "col-sm-12 col-lg-4 col-md-6">
+              <div class="card">
+                <img src="{{recipe.imageUrl || 'https://images.pexels.com/photos/1656666/pexels-photo-1656666.jpeg?auto=compress&cs=tinysrgb&w=1600'}}" class="card-img-top" 
+                  style="max-height: 180px; object-fit: cover;" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><a class="text-decoration-none link-dark" href="recipes/{{recipe.id}}">{{recipe.title }}</a></h5>
+                  <p class="card-text text-capitalize">{{recipe.user.username}}</p>
+                </div>
+              </div>
         </div>
-    
+        @endeach
   </div>
-  @endeach
-  
   @if(recipes.lastPage > 1)
-    <div>
+    <div class="mt-4">
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
               @each(anchor in recipes.getUrlsForRange(1, recipes.lastPage))            
@@ -57,9 +55,26 @@
             </ul>
           </nav>     
     </div>
-   
   @endif
- 
-  
+  </div>
+  <div class="col-md-3 col-sm-12 ">
+  <h3 class="mb-3">{{t('recipes.popularRecipes')}}</h3>
+    @each(popular in popularRecipes)
+      <div class="card mb-4">
+          <div class="row g-0">
+              <div class="col-md-4">
+                  <img src="{{popular.imageUrl || 'https://images.pexels.com/photos/1656666/pexels-photo-1656666.jpeg?auto=compress&cs=tinysrgb&w=1600'}}" 
+                  class="img-fluid rounded-start h-100" style="object-fit: cover">
+              </div>
+              <div class="col-md-8">
+                  <div class="card-body">
+                  <h5 class="card-title"> <a class="text-decoration-none link-dark" href="recipes/{{popular.id}}">{{popular.title }}</a></h5>
+                      <p class="card-text">{{popular.user.username}}</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+    @endeach
+  </div>  
 @endsection
 
