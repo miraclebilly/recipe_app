@@ -1,9 +1,8 @@
-[recipe app.docx](https://github.com/miraclebilly/recipe_app/files/9561791/recipe.app.docx)
 # recipe_app
 Deployed at - https://recipe-app-miracle.herokuapp.com/
 
-DESCRIPTION - 
-Recipe App allows users to create their favourite recipe, get feedback from other users on the recipes they created and users can see the most popular recipe based on how other users engage these recipes. This app help users prepare better meals and learn new and better way of making recipes.
+**DESCRIPTION **
+*Recipe App allows users to create their favourite recipe, get feedback from other users on the recipes they created and users can see the most popular recipe based on how other users engage these recipes. This app help users prepare better meals and learn new and better way of making recipes.
 
 FEATURES/PAGES -
 Sign Up Page - Users can create their account.
