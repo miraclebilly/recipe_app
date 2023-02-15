@@ -28,8 +28,13 @@ export default class HomeController{
         const popularRecipesResult =await Favourite.query().select('recipe_id').count('recipe_id as recipe_count').groupBy('recipe_id').orderBy('recipe_count', 'desc').limit(5)
         const popularRecipeIds = popularRecipesResult.map(result => result.recipeId)
         // To get an array of the most liked recipe in descending order
-        const popularRecipes = await Recipe.query().whereIn('id', popularRecipeIds)
-                                    .orderByRaw(popularRecipeIds.map(recipeId => `id = ${recipeId} desc`).join(', ')).preload('user')
+        let popularRecipes = []
+        if(popularRecipeIds.length > 0){
+
+             popularRecipes = await Recipe.query().whereIn('id', popularRecipeIds)
+                                        .orderByRaw(popularRecipeIds.map(recipeId => `id = ${recipeId} desc`).join(', ')).preload('user')  
+        }
+       
         return view.render('home', {recipes, popularRecipes} )
     }
 }
